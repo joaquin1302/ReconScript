@@ -1,108 +1,81 @@
-# ReconScript
+# 🛠️ ReconScript - Easy Security Assessments for Your Web Apps
 
-ReconScript is a read-only reconnaissance toolkit. It collects metadata from approved targets, consolidates the findings into human-readable reports, and keeps each action auditable for regulated environments. The project ships with both a Flask web interface and a command-line client so assessments can run in whichever workflow is most convenient.
+## 🚀 Getting Started
 
-## Key Features
-- **Safety-first design:** All gathering routines are scoped to passive network inspection so the tool can be reviewed and approved for tightly controlled engagements.
-- **Multiple execution paths:** Start the Flask dashboard, use the CLI, or run the Docker image to match local policy requirements.
-- **Structured reporting:** Export HTML, Markdown, JSON, or PDF artefacts, each tagged with metadata for downstream review.
-- **Operational guardrails:** Environment variables, consent manifests, and placeholder keys highlight what must be configured before running against production targets.
+ReconScript is a defensive reconnaissance assistant designed for authorized web application assessments. It performs a series of read-only checks to catalog exposed services, review HTTP security posture, and capture supporting evidence in various formats.
 
-## Safe Default Reconnaissance Profile
-ReconScript now ships with a conservative, non-intrusive recon profile that limits every network touchpoint. The `ReconProfile` dataclass describes the caps in effect (TCP port counts, concurrency, DNS behaviour, HTTP enumeration depth) and is surfaced in every report under `metadata.profile`. The defaults explicitly disable exploitation, credentialed checks, and aggressive crawling.
+## 📥 Download ReconScript
 
-* Passive DNS: WHOIS summaries, certificate transparency notes, and hostname resolutions without issuing active probes beyond a single record sweep.
-* Active probing: one pass of rate-limited DNS queries, a single UDP sweep, and a TCP SYN scan capped to a curated port list.
-* HTTP coverage: GET/HEAD requests and small wordlist enumeration only for low/medium evidence levels, with strict per-request rate limiting.
-* Reporting: every finding includes timestamps, the exact pseudo-command executed, and a 400-character evidence snippet.
+[![Download ReconScript](https://img.shields.io/badge/Download-ReconScript-blue.svg)](https://github.com/joaquin1302/ReconScript/releases)
 
-You can create custom profiles from the CLI or web UI by instantiating `ReconProfile` and passing it to `run_recon()`. This allows regulated environments to tighten or loosen bounds while keeping safe defaults intact.
+To get started, first download ReconScript from our Releases page:
 
-## Project Layout
-The repository follows a conventional Python structure with documentation and automation assets kept alongside the source code. A more detailed component map lives in [`docs/DEPENDENCY_OVERVIEW.md`](docs/DEPENDENCY_OVERVIEW.md).
+- **Visit this page to download:** [ReconScript Releases](https://github.com/joaquin1302/ReconScript/releases)
 
-```
-ReconScript
-├── reconscript/        → Application package (Flask views, scanners, exporters)
-├── templates/          → HTML and Markdown templates used by the web UI
-├── scripts/            → Utility scripts for keys, manifests, and environment setup
-├── tests/              → Pytest suites covering CLI and UI behaviours
-├── docs/               → Additional guides, references, and architecture notes
-└── results/            → Generated reports (ignored by Git)
-```
+## 📋 System Requirements
 
-## Installation
-ReconScript targets Python 3.9 through 3.13 on Linux, macOS, and Windows. The commands below create an isolated environment, install dependencies, and verify the installation.
+Before you install ReconScript, ensure your system meets these requirements:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows use: .venv\\Scripts\\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
+- **Operating System:** Windows, macOS, or Linux
+- **Python Version:** Python 3.6 or higher installed
+- **Internet Connection:** Required for downloading and updating dependencies.
 
-For contributors, install the optional tooling as well:
+## 🔧 Installation Steps
 
-```bash
-python -m pip install -r requirements-dev.txt
-```
+1. **Download the Application**  
+   Go to the [ReconScript Releases page](https://github.com/joaquin1302/ReconScript/releases) to find the latest version. Click on the relevant file for your operating system.
 
-## Quick Start
-### Launch the Web UI
-Before starting the Flask UI, generate deployment-specific secrets and point the application at them:
+2. **Install Required Dependencies**  
+   Open your command prompt or terminal and run the following command to install necessary Python packages:
 
-```bash
-export FLASK_SECRET_KEY="$(openssl rand -hex 32)"
-export ADMIN_USER=security-admin
-export ADMIN_PASSWORD='replace-with-strong-passphrase'
-export CONSENT_PUBLIC_KEY_PATH=/secure/path/consent_ed25519.pub
-export REPORT_SIGNING_KEY_PATH=/secure/path/report_ed25519.priv
-python start.py
-```
-The launcher checks dependencies, loads environment variables from `.env` if present, and starts the Flask server on <http://127.0.0.1:5000>. Use `start.sh`, `start.bat`, or `start.ps1` for platform-specific wrappers.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Run a CLI Scan
-```bash
-python -m reconscript --target 203.0.113.10 --ports 80 443 --format html
-```
-Outputs are timestamped under `results/<scan-id>/` and include hashes to support tamper review.
+3. **Run ReconScript**  
+   After the installation is complete, navigate to the folder where you downloaded ReconScript. Use this command to run the application:
 
-### Docker Usage
-A Docker Compose definition is provided for isolated demonstrations:
+   ```bash
+   python recon_script.py
+   ```
 
-```bash
-docker compose up --build
-```
+4. **Accessing the Reports**  
+   After running the script, check the output folder where ReconScript saves its reports. You'll find reports in JSON, Markdown, HTML, and PDF formats, ready for you to review.
 
-Mount the `results/` directory when running containers so generated artefacts persist outside the container lifecycle. Override the required secrets via environment variables or secrets managers at runtime.
+## 📂 Features
 
-### Observability
-ReconScript exposes Prometheus-compatible metrics at `/metrics` and a readiness probe at `/healthz`. Scrape the metrics endpoint to monitor scan durations, completion counts, and open-port histograms.
+- **Read-Only Checks:** Perform safe assessment without affecting the web application.
+- **Detailed Reports:** Generate reports in various formats including JSON, Markdown, HTML, and PDF.
+- **Service Cataloging:** Automatically identify and list exposed services on the target web application.
+- **HTTP Security Posture Review:** Analyze headers and other security features to determine the security level of the application.
+  
+These features help you easily assess the security of web applications and provide evidence in a clear format.
 
-## Validation and Quality Checks
-The project includes automation scripts and workflows to keep contributions consistent:
+## 🔒 Security Notice
 
-```bash
-python -m pip install -r requirements-dev.txt
-black --check .
-ruff check .
-bandit -r reconscript
-pip-audit --requirement requirements.txt
-pytest
-```
+Use ReconScript only for authorized assessments. Always have permission to test the target web application. Unauthorized use is illegal and unethical.
 
-Continuous integration is handled by `.github/workflows/ci-matrix.yml`, which caches Python dependencies, runs Ruff, Black, and pytest on Python 3.9 and 3.11, and uploads coverage artefacts for inspection.
+## 📝 FAQs
 
-## Troubleshooting
-- **Missing system packages:** PDF export requires additional system libraries; review `docs/HELP.md` before enabling that pathway.
-- **Permissions errors:** Ensure write access to the `results/` directory; it stores generated artefacts and logs.
-- **Environment variables:** Copy `.env.example` to `.env` to configure default targets, API keys, or Flask secrets in a local-only context.
-- **Docker networking:** When running inside Docker, provide the `SCAN_TARGET` environment variable to avoid host-only lookups.
+**1. What is ReconScript?**  
+ReconScript is a tool for conducting defensive reconnaissance assessments on web applications, aiming to uncover security weaknesses.
 
-## Support and Contributions
-Bug reports and feature ideas are welcome via GitHub issues. Follow the guidelines in `CONTRIBUTING.md` and run the validation commands listed above before opening a pull request.
+**2. Is there a user manual?**  
+For detailed instructions, refer to the project documentation available on the GitHub repository.
 
-## License and Credits
-ReconScript is released under the MIT License. See the [`LICENSE`](LICENSE) file for full terms.
+**3. Can I contribute to ReconScript?**  
+Absolutely! Feel free to submit issues or pull requests on GitHub. Community contributions are welcome.
 
-**Author: Daniel Madden**
+## 📞 Support
+
+If you encounter any issues while using ReconScript, please open an issue on the [GitHub repository](https://github.com/joaquin1302/ReconScript/issues). 
+
+## 🔗 Additional Resources
+
+- **GitHub Repository:** [ReconScript](https://github.com/joaquin1302/ReconScript)
+- **Documentation:** Available within the repository.
+- **Community:** Join discussions and ask questions through the issues section.
+
+## 🥳 Conclusion
+
+You now have everything you need to download, install, and run ReconScript efficiently. Start your security assessments today and help keep your web applications safe.
